@@ -1,27 +1,26 @@
-<div id="<%= dom_id reminder %>">
-  <p>
+<div id="<%= dom_id reminder %>" class="row">
+  <div class="col-12">
     <strong>Title:</strong>
     <%= reminder.title %>
-  </p>
+  </div>
 
-  <p>
+  <div class="col-12">
     <strong>Description:</strong>
     <%= reminder.description %>
-  </p>
+  </div>
 
-  <p>
+  <div class="col-4">
     <strong>Remind at:</strong>
-    <%= reminder.remind_at %>
-  </p>
+    <%= l reminder.remind_at, format: :long %>
+  </div>
 
-  <p>
+  <div class="col-4">
     <strong>Price:</strong>
-    <%= reminder.price %>
-  </p>
+    <%= number_to_currency reminder.price %>
+  </div>
 
-  <p>
+  <div class="col-4">
     <strong>Recurrence:</strong>
     <%= reminder.recurrence %>
-  </p>
-
+  </div>
 </div>

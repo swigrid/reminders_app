@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_18_122237) do
 
   create_table "reminders", force: :cascade do |t|
     t.string "title"
-    t.string "description"
+    t.text "description"
     t.datetime "remind_at"
     t.decimal "price", precision: 10, scale: 2
     t.string "recurrence"

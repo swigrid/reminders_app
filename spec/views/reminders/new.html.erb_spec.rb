@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "reminders/new", type: :view do
   before(:each) do
-    assign(:reminder, Reminder.new(
+    assign(:reminder, build(:reminder,
       title: "MyString",
       description: "MyString",
       price: "9.99",
-      recurrence: "MyString"
+      recurrence: "monthly"
     ))
   end
 
@@ -17,11 +17,11 @@ RSpec.describe "reminders/new", type: :view do
 
       assert_select "input[name=?]", "reminder[title]"
 
-      assert_select "input[name=?]", "reminder[description]"
+      assert_select "textarea[name=?]", "reminder[description]"
 
       assert_select "input[name=?]", "reminder[price]"
 
-      assert_select "input[name=?]", "reminder[recurrence]"
+      assert_select "select[name=?]", "reminder[recurrence]"
     end
   end
 end

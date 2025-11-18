@@ -1,29 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe "reminders/index", type: :view do
+  
+
   before(:each) do
-    assign(:reminders, [
-      Reminder.create!(
+    create(:reminder,
         title: "Title",
         description: "Description",
         price: "9.99",
-        recurrence: "Recurrence"
-      ),
-      Reminder.create!(
-        title: "Title",
-        description: "Description",
-        price: "9.99",
-        recurrence: "Recurrence"
+        recurrence: "monthly"
       )
-    ])
+      create(:reminder,
+        title: "Title",
+        description: "Description",
+        price: "9.99",
+        recurrence: "monthly"
+      )
+
+    assign(:reminders, Reminder.all.page(1))
   end
 
   it "renders a list of reminders" do
     render
-    cell_selector = 'div>p'
-    assert_select cell_selector, text: Regexp.new("Title".to_s), count: 2
-    assert_select cell_selector, text: Regexp.new("Description".to_s), count: 2
-    assert_select cell_selector, text: Regexp.new("9.99".to_s), count: 2
-    assert_select cell_selector, text: Regexp.new("Recurrence".to_s), count: 2
+    assert_select "div.col-12", text: Regexp.new("Title".to_s), count: 2
+    assert_select "div.col-12", text: Regexp.new("Description".to_s), count: 2
+    assert_select "div.col-4", text: Regexp.new("9.99".to_s), count: 2
+    assert_select "div.col-4", text: Regexp.new("Recurrence".to_s), count: 2
   end
 end

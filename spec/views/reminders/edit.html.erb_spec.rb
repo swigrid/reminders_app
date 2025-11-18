@@ -2,12 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "reminders/edit", type: :view do
   let(:reminder) {
-    Reminder.create!(
-      title: "MyString",
-      description: "MyString",
-      price: "9.99",
-      recurrence: "MyString"
-    )
+    create :reminder
   }
 
   before(:each) do
@@ -21,11 +16,11 @@ RSpec.describe "reminders/edit", type: :view do
 
       assert_select "input[name=?]", "reminder[title]"
 
-      assert_select "input[name=?]", "reminder[description]"
+      assert_select "textarea[name=?]", "reminder[description]"
 
       assert_select "input[name=?]", "reminder[price]"
 
-      assert_select "input[name=?]", "reminder[recurrence]"
+      assert_select "select[name=?]", "reminder[recurrence]"
     end
   end
 end

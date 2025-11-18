@@ -1,14 +1,19 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Reminders</h1>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>Reminders</h1>
+  <%= link_to "New reminder", new_reminder_path, class: "ms-auto btn btn-primary mb-3" %>
+</div>
+
 
 <div id="reminders">
   <% @reminders.each do |reminder| %>
     <%= render reminder %>
-    <p>
+    <div>
       <%= link_to "Show this reminder", reminder %>
-    </p>
+    </div>
+    <hr class="my-4">
   <% end %>
 </div>
 
-<%= link_to "New reminder", new_reminder_path %>
+<%= paginate @reminders %>

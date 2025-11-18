@@ -7,3 +7,17 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+Reminder.destroy_all
+
+50.times do
+  Reminder.create!(
+    title: Faker::Lorem.sentence(word_count: 3),
+    description: Faker::Lorem.paragraph,
+    price: Faker::Number.decimal(l_digits: 2, r_digits: 2),
+    recurrence: ["daily", "weekly", "monthly", nil].sample,
+    remind_at: Faker::Time.forward(days: 30)
+  )
+end
+
+puts "Created 50 reminders"

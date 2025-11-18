@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "reminders/show", type: :view do
   before(:each) do
-    assign(:reminder, Reminder.create!(
+    assign(:reminder, create(:reminder,
       title: "Title",
       description: "Description",
       price: "9.99",
-      recurrence: "Recurrence"
+      recurrence: "monthly"
     ))
   end
 

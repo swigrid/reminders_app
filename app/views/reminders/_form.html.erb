@@ -11,32 +11,34 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="mb-3">
+    <div>
+      <%= form.label :title, class: "form-label" %>
+      <%= form.text_field :title, class: "form-control" %>
+    </div>
+
+    <div>
+      <%= form.label :description, class: "form-label" %>
+      <%= form.text_area :description, class: "form-control" %>
+    </div>
+
+    <div>
+      <%= form.label :remind_at, class: "form-label" %>
+      <%= form.datetime_field :remind_at, class: "form-control" %>
+    </div>
+
+    <div>
+      <%= form.label :price, class: "form-label" %>
+      <%= form.number_field :price, class: "form-control" %>
+    </div>
+
+    <div>
+      <%= form.label :recurrence, class: "form-label" %>
+      <%= form.select :recurrence, Reminder.recurrences.keys.map { |key| [key.humanize, key] }, {}, class: "form-select" %>
+    </div>
   </div>
 
   <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div>
-    <%= form.label :remind_at, style: "display: block" %>
-    <%= form.datetime_field :remind_at %>
-  </div>
-
-  <div>
-    <%= form.label :price, style: "display: block" %>
-    <%= form.text_field :price %>
-  </div>
-
-  <div>
-    <%= form.label :recurrence, style: "display: block" %>
-    <%= form.text_field :recurrence %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-sm btn-primary' %>
   </div>
 <% end %>

@@ -3,7 +3,7 @@ class RemindersController < ApplicationController
 
   # GET /reminders
   def index
-    @reminders = Reminder.all
+    @reminders = Reminder.all.page(params[:page]).per(10)
   end
 
   # GET /reminders/1
@@ -26,7 +26,7 @@ class RemindersController < ApplicationController
     if @reminder.save
       redirect_to @reminder, notice: "Reminder was successfully created."
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -35,7 +35,7 @@ class RemindersController < ApplicationController
     if @reminder.update(reminder_params)
       redirect_to @reminder, notice: "Reminder was successfully updated.", status: :see_other
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

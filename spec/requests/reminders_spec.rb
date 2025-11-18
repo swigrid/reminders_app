@@ -18,11 +18,14 @@ RSpec.describe "/reminders", type: :request do
   # Reminder. As you add validations to Reminder, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { 
+      title: "Test Reminder", remind_at: 1.day.from_now,
+      description: "This is a test reminder.", price: 9.99, recurrence: "weekly"
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { title: nil, remind_at: nil }
   }
 
   describe "GET /index" do
@@ -68,6 +71,17 @@ RSpec.describe "/reminders", type: :request do
         post reminders_url, params: { reminder: valid_attributes }
         expect(response).to redirect_to(reminder_url(Reminder.last))
       end
+
+      it 'creates a reminder with the correct attributes' do
+        post reminders_url, params: { reminder: valid_attributes }
+        reminder = Reminder.last
+        expect(reminder.title).to eq("Test Reminder")
+        expect(reminder.description).to eq("This is a test reminder.")
+        expect(reminder.price).to eq(9.99)
+        expect(reminder.recurrence).to eq("weekly")
+        # comparing integer timestamps to avoid precision issues
+        expect(reminder.remind_at.to_i).to eq(1.day.from_now.to_i)
+      end
     end
 
     context "with invalid parameters" do
@@ -79,7 +93,7 @@ RSpec.describe "/reminders", type: :request do
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post reminders_url, params: { reminder: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end
@@ -87,14 +101,18 @@ RSpec.describe "/reminders", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          title: "Updated Reminder", remind_at: 2.days.from_now
+        }
       }
 
       it "updates the requested reminder" do
         reminder = Reminder.create! valid_attributes
         patch reminder_url(reminder), params: { reminder: new_attributes }
         reminder.reload
-        skip("Add assertions for updated state")
+        expect(reminder.title).to eq("Updated Reminder")
+        # comparing integer timestamps to avoid precision issues
+        expect(reminder.remind_at.to_i).to eq(2.days.from_now.to_i)
       end
 
       it "redirects to the reminder" do
@@ -109,7 +127,7 @@ RSpec.describe "/reminders", type: :request do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         reminder = Reminder.create! valid_attributes
         patch reminder_url(reminder), params: { reminder: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end
