@@ -9,8 +9,18 @@
 <div id="reminders">
   <% @reminders.each do |reminder| %>
     <%= render reminder %>
-    <div>
-      <%= link_to "Show this reminder", reminder %>
+    <div class="d-flex gap-3 mb-3">
+      <div>
+        <%= link_to "Show this reminder", reminder %>
+      </div>
+      <div>
+        <%= link_to "Edit this reminder", edit_reminder_path(reminder) %>
+      </div>
+      <div class="ms-auto">
+        <span class="text-muted">
+          created at: <%= l reminder.created_at, format: :long %>
+        </span>
+      </div>
     </div>
     <hr class="my-4">
   <% end %>

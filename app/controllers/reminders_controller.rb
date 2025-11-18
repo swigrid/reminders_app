@@ -3,7 +3,7 @@ class RemindersController < ApplicationController
 
   # GET /reminders
   def index
-    @reminders = Reminder.all.page(params[:page]).per(10)
+    @reminders = Reminder.created_at_desc.page(params[:page]).per(10)
   end
 
   # GET /reminders/1

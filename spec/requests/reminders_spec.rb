@@ -34,6 +34,20 @@ RSpec.describe "/reminders", type: :request do
       get reminders_url
       expect(response).to be_successful
     end
+
+    it 'sorts reminders sorted by date and time (latest first).' do
+      create(:reminder,
+        title: "Older Reminder", remind_at: 2.days.from_now,
+        description: "This is an older reminder.", price: 5.00, recurrence: "monthly"
+      )
+      create(:reminder,
+        title: "Newer Reminder", remind_at: 1.day.from_now,
+        description: "This is a newer reminder.", price: 10.00, recurrence: "weekly"
+      )
+
+      get reminders_url
+      expect(response.body).to match(/Newer Reminder.*Older Reminder/m)
+    end
   end
 
   describe "GET /show" do

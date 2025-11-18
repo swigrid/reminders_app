@@ -56,4 +56,16 @@ RSpec.describe Reminder, type: :model do
       expect(reminder).not_to be_valid
     end
   end
+
+  describe 'scopes' do
+    describe '.created_at_desc' do
+      it 'orders reminders by latest first' do
+        older_reminder = create(:reminder, created_at: 2.days.ago)
+        newer_reminder = create(:reminder, created_at: 1.day.ago)
+
+        expect(Reminder.created_at_desc.first).to eq(newer_reminder)
+        expect(Reminder.created_at_desc.last).to eq(older_reminder)
+      end
+    end
+  end
 end

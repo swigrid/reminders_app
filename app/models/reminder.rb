@@ -18,4 +18,6 @@ class Reminder < ApplicationRecord
 
   enum recurrence: { none: "none", daily: "daily", weekly: "weekly", monthly: "monthly", yearly: "yearly" }, 
                     _prefix: true
+
+  scope :created_at_desc, -> { order(created_at: :desc) }
 end
