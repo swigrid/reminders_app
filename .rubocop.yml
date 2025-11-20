@@ -1,0 +1,31 @@
+# ==============================================================================
+# PROJECT-SPECIFIC RUBOCOP CONFIG
+# ==============================================================================
+# This file inherits from the global ~/.rubocop.yml and adds project-specific
+# settings for the reminders_app project.
+#
+# HIERARCHY:
+# 1. Global config: ~/.rubocop.yml (basic rules)
+# 2. This file: .rubocop.yml (project-specific overrides)
+# ==============================================================================
+
+# Inherits all settings from the global config
+inherit_from: ~/.rubocop.yml
+
+# Project-specific exclude (if you need anything additional)
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/**/*'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'public/**/*'
+    - 'storage/**/*'
+
+# You can add other project-specific rules here as needed
+# Example:
+# Style/StringLiterals:
+#   EnforcedStyle: double_quotes  # use double quotes for this project

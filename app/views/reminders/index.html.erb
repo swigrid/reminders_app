@@ -5,6 +5,25 @@
   <%= link_to "New reminder", new_reminder_path, class: "ms-auto btn btn-primary mb-3" %>
 </div>
 
+<div class="d-flex gap-5 mb-4">
+  <div>
+    <strong>Total reminders:</strong> <%= Reminder.all.size %>
+  </div>
+
+  <div class="ms-auto">
+    <strong>Reminders due today:</strong> <%= @due_reminders.size %>
+  </div>
+</div>
+
+<div class="my-4">
+  <h2>Reminders due List</h2>
+  <% @due_reminders.each do |reminder| %>
+    <%= render reminder %>
+    <hr class="my-4">
+  <% end %>
+</div>
+
+<h2>All Reminders</h2>
 
 <div id="reminders">
   <% @reminders.each do |reminder| %>

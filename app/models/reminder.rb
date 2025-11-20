@@ -16,8 +16,8 @@ class Reminder < ApplicationRecord
   validates :remind_at, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
-  enum recurrence: { none: "none", daily: "daily", weekly: "weekly", monthly: "monthly", yearly: "yearly" }, 
-                    _prefix: true
+  enum recurrence: { none: 'none', daily: 'daily', weekly: 'weekly', monthly: 'monthly' },
+          _prefix: true
 
   scope :created_at_desc, -> { order(created_at: :desc) }
 end
