@@ -57,6 +57,19 @@ RSpec.describe Reminder, type: :model do
     end
   end
 
+  describe '#only_future_remind_at' do
+    it 'is not valid if remind_at is in the past' do
+      reminder.remind_at = 1.day.ago
+      expect(reminder).not_to be_valid
+      expect(reminder.errors[:remind_at]).to include('must be in the future')
+    end
+
+    it 'is valid if remind_at is in the future' do
+      reminder.remind_at = 1.day.from_now
+      expect(reminder).to be_valid
+    end
+  end
+
   describe 'scopes' do
     describe '.created_at_desc' do
       it 'orders reminders by latest first' do

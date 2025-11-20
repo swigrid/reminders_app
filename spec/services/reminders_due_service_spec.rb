@@ -22,14 +22,20 @@ RSpec.describe RemindersDueService, type: :service do
 
     # ==============================================
     # reminders with no recurrence
-    let!(:reminder_yesterday) { create(:reminder, title: 'Past Reminder', remind_at: 1.day.ago, recurrence: nil) }
+    let!(:reminder_yesterday) do
+      r = build(:reminder, title: 'Past Reminder', remind_at: 1.day.ago, recurrence: nil)
+      r.save(validate: false)
+      r
+    end
     let!(:reminder_today) { create(:reminder, title: 'Past Reminder', remind_at: Time.current, recurrence: nil) }
     let!(:reminder_tomorrow) { create(:reminder, title: 'Future Reminder', remind_at: 1.day.from_now, recurrence: nil) }
 
     # ==============================================
     # reminders with recurrence every day
     let!(:recurring_daily_reminder_yesterday) do
-      create(:reminder, title: 'Recurring Past Reminder', remind_at: 1.day.ago, recurrence: 'daily')
+      r = build(:reminder, title: 'Recurring Past Reminder', remind_at: 1.day.ago, recurrence: 'daily')
+      r.save(validate: false)
+      r
     end
     let!(:recurring_daily_reminder_today) do
       create(:reminder, title: 'Recurring Today Reminder', remind_at: Time.current, recurrence: 'daily')
@@ -41,20 +47,28 @@ RSpec.describe RemindersDueService, type: :service do
     # ==============================================
     # reminders with recurrence every week
     let!(:recurring_weekly_reminder_last_week) do
-      create(:reminder,
-             title: 'Recurring Weekly Past Reminder', remind_at: 7.days.ago, recurrence: 'weekly')
+      r = build(:reminder,
+                title: 'Recurring Weekly Past Reminder', remind_at: 7.days.ago, recurrence: 'weekly')
+      r.save(validate: false)
+      r
     end
     let!(:recurring_weekly_reminder_last_week_plus_one_day) do
-      create(:reminder,
-             title: 'Recurring Weekly Past Reminder Plus One Day', remind_at: 6.days.ago, recurrence: 'weekly')
+      r = build(:reminder,
+                title: 'Recurring Weekly Past Reminder Plus One Day', remind_at: 6.days.ago, recurrence: 'weekly')
+      r.save(validate: false)
+      r
     end
     # this week reminders
     let!(:recurring_weekly_reminder_today_yesterday) do
-      create(:reminder, title: 'Recurring Weekly Today Reminder Yesterday', remind_at: 1.day.ago, recurrence: 'weekly')
+      r = build(:reminder, title: 'Recurring Weekly Today Reminder Yesterday', remind_at: 1.day.ago, recurrence: 'weekly')
+      r.save(validate: false)
+      r
     end
     let!(:recurring_weekly_reminder_today) do
-      create(:reminder, title: 'Recurring Weekly Today Reminder',
-                        remind_at: Time.current, recurrence: 'weekly')
+      r = build(:reminder, title: 'Recurring Weekly Today Reminder',
+                           remind_at: Time.current, recurrence: 'weekly')
+      r.save(validate: false)
+      r
     end
     let!(:recurring_weekly_reminder_tomorrow) do
       create(:reminder, title: 'Recurring Weekly Tomorrow Reminder', remind_at: 1.day.from_now, recurrence: 'weekly')
@@ -76,23 +90,31 @@ RSpec.describe RemindersDueService, type: :service do
     # ==============================================
     # reminders with monthly recurrence
     let!(:recurring_monthly_reminder_last_month_day_before) do
-      create(:reminder,
-             title: 'Recurring Monthly Past Reminder Day Before', remind_at: (1.months.ago + 1.day.ago),
-             recurrence: 'monthly')
+      r = build(:reminder,
+                title: 'Recurring Monthly Past Reminder Day Before', remind_at: (1.months.ago + 1.day.ago),
+                recurrence: 'monthly')
+      r.save(validate: false)
+      r
     end
     let!(:recurring_monthly_reminder_last_month) do
-      create(:reminder,
-             title: 'Recurring Monthly Past Reminder', remind_at: 1.month.ago, recurrence: 'monthly')
+      r = build(:reminder,
+                title: 'Recurring Monthly Past Reminder', remind_at: 1.month.ago, recurrence: 'monthly')
+      r.save(validate: false)
+      r
     end
     let!(:recurring_monthly_reminder_last_month_day_after) do
-      create(:reminder, title: 'Recurring Monthly Past Reminder Day After', remind_at: (1.months.ago + 1.day.from_now),
-                        recurrence: 'monthly')
+      r = build(:reminder, title: 'Recurring Monthly Past Reminder Day After', remind_at: (1.months.ago + 1.day.from_now),
+                           recurrence: 'monthly')
+      r.save(validate: false)
+      r
     end
 
     # this month reminders
     let!(:recurring_monthly_reminder_this_month_day_before) do
-      create(:reminder,
-             title: 'Recurring Monthly This Month Reminder Day Before', remind_at: 1.day.ago, recurrence: 'monthly')
+      r = build(:reminder,
+                title: 'Recurring Monthly This Month Reminder Day Before', remind_at: 1.day.ago, recurrence: 'monthly')
+      r.save(validate: false)
+      r
     end
     let!(:recurring_monthly_reminder_this_month) do
       create(:reminder, title: 'Recurring Monthly This Month Reminder', remind_at: Time.current, recurrence: 'monthly')
@@ -104,9 +126,11 @@ RSpec.describe RemindersDueService, type: :service do
 
     # next month reminders
     let!(:recurring_monthly_reminder_next_month_day_before) do
-      create(:reminder,
-             title: 'Recurring Monthly Future Reminder Day Before', remind_at: (1.months.from_now + 1.day.ago),
-             recurrence: 'monthly')
+      r = build(:reminder,
+                title: 'Recurring Monthly Future Reminder Day Before', remind_at: (1.months.from_now + 1.day.ago),
+                recurrence: 'monthly')
+      r.save(validate: false)
+      r
     end
     let!(:recurring_monthly_reminder_next_month) do
       create(:reminder, title: 'Recurring Monthly Future Reminder', remind_at: 1.month.from_now, recurrence: 'monthly')
@@ -229,9 +253,11 @@ RSpec.describe RemindersDueService, type: :service do
       end
 
       let!(:monthly_reminder_on_31st) do
-        create(:reminder,
-               title: 'Monthly Reminder on 31st', remind_at: Time.zone.local(2025, 1, 31, 9, 0, 0),
-               recurrence: 'monthly')
+        r = build(:reminder,
+                  title: 'Monthly Reminder on 31st', remind_at: Time.zone.local(2025, 1, 31, 9, 0, 0),
+                  recurrence: 'monthly')
+        r.save(validate: false)
+        r
       end
 
       it 'sets time correctly for edge case' do
@@ -256,21 +282,27 @@ RSpec.describe RemindersDueService, type: :service do
           end
 
           let!(:monthly_reminder_on_29th) do
-            create(:reminder,
-                   title: 'Monthly Reminder on 29th', remind_at: Time.zone.local(2024, 1, 29, 9, 0, 0),
-                   recurrence: 'monthly')
+            r = build(:reminder,
+                      title: 'Monthly Reminder on 29th', remind_at: Time.zone.local(2024, 1, 29, 9, 0, 0),
+                      recurrence: 'monthly')
+            r.save(validate: false)
+            r
           end
 
           let!(:monthly_reminder_on_30th) do
-            create(:reminder,
-                   title: 'Monthly Reminder on 30th', remind_at: Time.zone.local(2024, 1, 30, 9, 0, 0),
-                   recurrence: 'monthly')
+            r = build(:reminder,
+                      title: 'Monthly Reminder on 30th', remind_at: Time.zone.local(2024, 1, 30, 9, 0, 0),
+                      recurrence: 'monthly')
+            r.save(validate: false)
+            r
           end
 
           let!(:monthly_reminder_on_31st) do
-            create(:reminder,
-                   title: 'Monthly Reminder on 31st', remind_at: Time.zone.local(2024, 1, 31, 9, 0, 0),
-                   recurrence: 'monthly')
+            r = build(:reminder,
+                      title: 'Monthly Reminder on 31st', remind_at: Time.zone.local(2024, 1, 31, 9, 0, 0),
+                      recurrence: 'monthly')
+            r.save(validate: false)
+            r
           end
 
           it 'sets time correctly for February edge case' do

@@ -13,10 +13,10 @@
 #
 FactoryBot.define do
   factory :reminder do
-    title { "MyString" }
-    description { "MyString" }
-    remind_at { "2025-11-18 13:22:37" }
-    price { "9.99" }
-    recurrence { "monthly" }
+    title { 'MyString' }
+    description { 'MyString' }
+    remind_at { 1.week.from_now }
+    price { '9.99' }
+    recurrence { 'monthly' }
   end
 end
